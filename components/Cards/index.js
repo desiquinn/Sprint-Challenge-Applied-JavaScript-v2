@@ -17,3 +17,58 @@
 // </div>
 //
 // Create a card for each of the articles and add the card to the DOM.
+
+
+//This pulls the data and creates an articleObject
+axios.get('https://lambda-times-backend.herokuapp.com/articles')
+    .then(articlesData => {
+        console.log(articlesData)
+        console.log(articlesData.data.articles)
+        const articlesObj = articlesData.data.articles
+        console.log(articlesObj)
+
+        // for(topicArray in articlesObj) {
+        //     console.log(topicArray)
+        // }
+
+        console.log(Object.values(articlesObj))
+    })
+    .catch(error => {
+        console.log(error)
+    })
+
+
+/* This function must be feed into a .forEach method that will access the article (object) within the
+topicArrays (array) located inside the articlesObj (object)
+*/
+function createArticleCard(article) {
+    const card = document.createElement('div');
+    const headline = document.createElement('div');
+    const author = document.createElement('div');
+    const imgContainer = document.createElement('div');
+    const authorImg = document.createElement('img');
+    const authorName = document.createElement('span');
+
+    card.classList.add('card');
+    headline.classList.add('headline');
+    author.classList.add('author');
+    imgContainer.classList.add('img-container');
+
+    headline.textContent = article.headline;
+    authorImg.src = article.authorPhoto;
+    authorName.textContent = `By ${article.authorName}`
+
+    return card;
+}
+
+/* 
+1. To get artciles i need to use for/in at 'articleObj' to access array values *** keys are named
+after the corresponding tabs that the articles go in*** 
+2. then on the articleTopic level I need to use .forEach to access the object values within each of the arrays
+these arrays are the actual articles.  Then I can pull out each of the data values.
+
+
+*/
+
+
+
