@@ -34,6 +34,14 @@ axios.get('https://lambda-times-backend.herokuapp.com/articles')
         // }
 
         const topicArray = Object.values(articlesObj)
+     
+        for(key in articlesObj) {
+            articlesObj[key].forEach(object => {
+                object.dataTab = key
+            });
+            console.log(articlesObj)
+        }
+        
         topicArray.forEach(articleArray => {
             console.log(articleArray)
             articleArray.forEach(article => {
@@ -52,6 +60,7 @@ axios.get('https://lambda-times-backend.herokuapp.com/articles')
 topicArrays (array) located inside the articlesObj (object)
 */
 function createArticleCard(article) {
+    console.log("article in function", article)
     const card = document.createElement('div');
     const headline = document.createElement('div');
     const author = document.createElement('div');
@@ -74,6 +83,13 @@ function createArticleCard(article) {
     author.appendChild(authorName);
     imgContainer.appendChild(authorImg);
 
+    //stretch
+    const dataAttrCard = document.createAttribute('data-tab');
+    dataAttrCard.value = article.dataTab;
+    console.log(dataAttrCard);
+
+    card.setAttributeNode(dataAttrCard);
+
     return card;
 }
 
@@ -82,9 +98,12 @@ function createArticleCard(article) {
 after the corresponding tabs that the articles go in*** 
 2. then on the articleTopic level I need to use .forEach to access the object values within each of the arrays
 these arrays are the actual articles.  Then I can pull out each of the data values.
-
-
 */
 
+//STRETCH!
+
+/*
+Step 1: Add 
+*/
 
 
