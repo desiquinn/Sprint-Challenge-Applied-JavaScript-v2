@@ -17,7 +17,7 @@
 // </div>
 //
 // Create a card for each of the articles and add the card to the DOM.
-
+const cardsContainer = document.querySelector('.cards-container')
 
 //This pulls the data and creates an articleObject
 axios.get('https://lambda-times-backend.herokuapp.com/articles')
@@ -28,13 +28,23 @@ axios.get('https://lambda-times-backend.herokuapp.com/articles')
         console.log(articlesObj)
 
         // for(topicArray in articlesObj) {
-        //     console.log(topicArray)
+        //     topicArray.forEach(article =>{
+        //         createArticleCard(article)
+        //     })
         // }
 
-        console.log(Object.values(articlesObj))
+        const topicArray = Object.values(articlesObj)
+        topicArray.forEach(articleArray => {
+            console.log(articleArray)
+            articleArray.forEach(article => {
+                console.log(article)
+                const articleCard = createArticleCard(article)
+                cardsContainer.appendChild(articleCard)
+            })
+        })
     })
     .catch(error => {
-        console.log(error)
+        console.log("ERROR:", error)
     })
 
 
@@ -57,6 +67,12 @@ function createArticleCard(article) {
     headline.textContent = article.headline;
     authorImg.src = article.authorPhoto;
     authorName.textContent = `By ${article.authorName}`
+
+    card.appendChild(headline);
+    card.appendChild(author);
+    author.appendChild(imgContainer);
+    author.appendChild(authorName);
+    imgContainer.appendChild(authorImg);
 
     return card;
 }
